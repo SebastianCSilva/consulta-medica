@@ -32,7 +32,7 @@ class Paciente(models.Model):
         default=timezone.now)
 
     def __str__(self):
-        return self.rut, self.nombre, self.apellidos
+        return "%s %s %s" % (self.rut, self.nombre, self.apellidos)
 
 
 class Medico(models.Model):
@@ -47,7 +47,7 @@ class Medico(models.Model):
         default=timezone.now)
 
     def __str__(self):
-        return self.rut, self.nombre, self.apellidos
+        return "%s %s %s" % (self.rut, self.nombre, self.apellidos)
 
 
 class Notificacione(models.Model):
