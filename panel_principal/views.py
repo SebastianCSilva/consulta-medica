@@ -4,7 +4,7 @@ from django.contrib.auth import logout as do_logout
 from django.contrib.auth import authenticate, login as dj_login
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.forms import UserCreationForm
-from .forms import PacienteForm
+from .forms import PacienteForm, MedicoForm
 from .models import Boxe, Paciente, Medico, Notificacione, Horas_medica, Llamada_medica
 
 
@@ -120,8 +120,6 @@ def paciente_new(request):
         form = PacienteForm()
     return render(request, 'paciente_edit.html', {'form': form})
 
-
-
 def paciente_edit(request, pk):
     post = get_object_or_404(Paciente, pk=pk)
     if request.method == "POST":
@@ -141,3 +139,52 @@ def paciente_edit(request, pk):
     else:
         form = PacienteForm(instance=post)
     return render(request, 'paciente_edit.html', {'form': form})
+
+
+
+def medico_list(request):
+    medicos = Medico.objects.order_by('rut')
+    return render(request, 'medico.html', {'medicos':medicos})
+
+def medico_detail(request, pk):
+    medico = get_object_or_404(Medico, pk=pk)
+    return render(request, 'medico_detail.html', {'medico': medico})
+
+def medico_new(request):
+    if request.method == "POST":
+        form = MedicoForm(request.POST)
+        if form.is_valid():
+            medico = form.save(commit=False)
+            medico.nombre = request.nombre
+            medico.apellidos = request.apellidos
+            medico.rut = request.rut
+            medico.fecha_nacimiento = request.fecha_nacimiento
+            medico.direccion = request.direccion
+            medico.genero = request.genero
+            medico.created_date = timezone.now()
+            medico.save()
+            return redirect('medico_detail', pk=medico.pk)
+    else:
+        form = MedicoForm()
+    return render(request, 'medico_edit.html', {'form': form})
+
+
+
+def medico_edit(request, pk):
+    post = get_object_or_404(Medico, pk=pk)
+    if request.method == "POST":
+        form = MedicoForm(request.POST, instance=post)
+        if form.is_valid():
+            medico = form.save(commit=False)
+            medico.nombre = request.nombre
+            medico.apellidos = request.apellidos
+            medico.rut = request.rut
+            medico.fecha_nacimiento = request.fecha_nacimiento
+            medico.direccion = request.direccion
+            medico.genero = request.genero
+            medico.created_date = timezone.now()
+            medico.save()
+            return redirect('medico_detail', pk=medico.pk)
+    else:
+        form = MedicoForm(instance=post)
+    return render(request, 'medico_edit.html', {'form': form})

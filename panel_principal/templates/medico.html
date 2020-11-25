@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="col-md-3">
+    {% for medico in medicos %}
+        <div class="post">
+            <h1><a href="{% url 'medico_detail' pk=medico.pk %}">{{ medico.rut }}</a></h1>
+            <h3>{{ medico.nombre }} {{ medico.apellidos }}</h3>
+            <h2>{{ medico.fecha_nacimiento }}</h2>
+            <p>{{ medico.genero }}</p>
+        </div>
+    {% endfor %}
+</div>     
+{% endblock %}

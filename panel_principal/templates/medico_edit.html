@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="col-md-8">
+    <div class="post">
+        <h2>Nuevo Medico</h2>
+        <form method="POST" class="post-form">{% csrf_token %}
+            {{ form.as_table }}
+            <button type="submit" class="save btn btn-default">Guardar</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

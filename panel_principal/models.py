@@ -39,7 +39,6 @@ class Medico(models.Model):
     nombre = models.TextField()
     apellidos = models.TextField()
     rut = models.TextField()
-    contrasena = models.TextField()
     direccion = models.TextField()
     fecha_nacimiento = models.DateField()
     genero = models.ForeignKey(Genero, on_delete=models.CASCADE)
