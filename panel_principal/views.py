@@ -1,10 +1,12 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from django.contrib.auth import logout as do_logout
 from django.contrib.auth import authenticate, login as dj_login
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.forms import UserCreationForm
+from .forms import PacienteForm
 from .models import Boxe, Paciente, Medico, Notificacione, Horas_medica, Llamada_medica
+
 
 
 
@@ -89,3 +91,53 @@ def logout(request):
     do_logout(request)
     # Redireccionamos a la portada
     return redirect('/')
+
+
+def paciente_list(request):
+    pacientes = Paciente.objects.order_by('rut')
+    return render(request, 'panel_principal/templates/paciente.html', {'pacientes':pacientes})
+
+def paciente_detail(request, pk):
+    paciente = get_object_or_404(Paciente, pk=pk)
+    return render(request, 'paciente_detail.html', {'paciente': paciente})
+
+def paciente_new(request):
+    if request.method == "POST":
+        form = PacienteForm(request.POST)
+        if form.is_valid():
+            paciente = form.save(commit=False)
+            paciente.nombre = request.nombre
+            paciente.apellidos = request.apellidos
+            paciente.rut = request.rut
+            paciente.nombre = request.nombre
+            paciente.fecha_nacimiento = request.fecha_nacimiento
+            paciente.direccion = request.direccion
+            paciente.genero = request.genero
+            paciente.created_date = timezone.now()
+            paciente.save()
+            return redirect('paciente_detail', pk=paciente.pk)
+    else:
+        form = PacienteForm()
+    return render(request, 'paciente_edit.html', {'form': form})
+
+
+
+def paciente_edit(request, pk):
+    post = get_object_or_404(Paciente, pk=pk)
+    if request.method == "POST":
+        form = PacienteForm(request.POST, instance=post)
+        if form.is_valid():
+            paciente = form.save(commit=False)
+            paciente.nombre = request.nombre
+            paciente.apellidos = request.apellidos
+            paciente.rut = request.rut
+            paciente.nombre = request.nombre
+            paciente.fecha_nacimiento = request.fecha_nacimiento
+            paciente.direccion = request.direccion
+            paciente.genero = request.genero
+            paciente.created_date = timezone.now()
+            paciente.save()
+            return redirect('paciente_detail', pk=paciente.pk)
+    else:
+        form = PacienteForm(instance=post)
+    return render(request, 'paciente_edit.html', {'form': form})

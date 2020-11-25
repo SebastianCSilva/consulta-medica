@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="col-md-3">
+    {% for paciente in pacientes %}
+        <div class="post">
+            <h1><a href="{% url 'paciente_detail' pk=paciente.pk %}">{{ paciente.rut }}</a></h1>
+            <h3>{{ paciente.nombre }} {{ paciente.apellidos }}</h3>
+            <h2>{{ paciente.fecha_nacimiento }}</h2>
+            <p>{{ paciente.genero }}</p>
+        </div>
+    {% endfor %}
+</div>     
+{% endblock %}
