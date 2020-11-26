@@ -4,7 +4,7 @@ from django.contrib.auth import logout as do_logout
 from django.contrib.auth import authenticate, login as dj_login
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.forms import UserCreationForm
-from .forms import PacienteForm, MedicoForm
+from .forms import PacienteForm, MedicoForm, HorasMedicasForm
 from .models import Boxe, Paciente, Medico, Notificacione, Horas_medica, Llamada_medica
 
 
@@ -188,3 +188,50 @@ def medico_edit(request, pk):
     else:
         form = MedicoForm(instance=post)
     return render(request, 'medico_edit.html', {'form': form})
+
+
+
+
+
+def horasmedica_list(request):
+    horasmedicas = Horas_medica.objects.order_by('id')
+    return render(request, 'horasmedica.html', {'horasmedicas':horasmedicas})
+
+def horasmedica_detail(request, pk):
+    horasmedica = get_object_or_404(Horas_medica, pk=pk)
+    return render(request, 'horasmedica_detail.html', {'horasmedica': horasmedica})
+
+def horasmedica_new(request):
+    if request.method == "POST":
+        form = HorasMedicasForm(request.POST)
+        if form.is_valid():
+            horasmedica = form.save(commit=False)
+            horasmedica.id_boxes = request.id_boxes
+            horasmedica.id_medico = request.id_medico
+            horasmedica.id_paciente = request.id_paciente
+            horasmedica.descripcion = request.descripcion
+            horasmedica.diagnostico = request.diagnostico
+            horasmedica.created_date = timezone.now()
+            horasmedica.save()
+            return redirect('horasmedica_detail', pk=horasmedica.pk)
+    else:
+        form = HorasMedicasForm()
+    return render(request, 'horasmedica_edit.html', {'form': form})
+
+def horasmedica_edit(request, pk):
+    post = get_object_or_404(Medico, pk=pk)
+    if request.method == "POST":
+        form = HorasMedicasForm(request.POST, instance=post)
+        if form.is_valid():
+            horasmedica = form.save(commit=False)
+            horasmedica.id_boxes = request.id_boxes
+            horasmedica.id_medico = request.id_medico
+            horasmedica.id_paciente = request.id_paciente
+            horasmedica.descripcion = request.descripcion
+            horasmedica.diagnostico = request.diagnostico
+            horasmedica.created_date = timezone.now()
+            horasmedica.save()
+            return redirect('horasmedica_detail', pk=horasmedica.pk)
+    else:
+        form = HorasMedicasForm(instance=post)
+    return render(request, 'horasmedica_edit.html', {'form': form})

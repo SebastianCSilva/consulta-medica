@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    {% for horasmedica in horasmedicas %}
+    <div class="col-md-3">
+        <div class="post">
+            <h1>Paciente: <a href="{% url 'horasmedica_detail' pk=horasmedica.pk %}">{{ horasmedica.id_paciente }}</a></h1>
+            <h2>Numero de Box: {{ horasmedica.id_boxes }} </h2>
+            <h2>Datos del doctor: {{ horasmedica.id_medico }}</h2>
+            <p>Descripcion: {{ horasmedica.descripcion }}</p>
+            <h2>Diagnostico: {{ horasmedica.diagnostico }}</h2>
+        </div>
+    </div>
+    {% endfor %}
+  
+{% endblock %}

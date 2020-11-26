@@ -19,4 +19,9 @@ urlpatterns = [
     path('medico/<int:pk>/', views.medico_detail, name='medico_detail'),
     path('medico/new', views.medico_new, name='medico_new'),
     path('medico/<int:pk>/edit/', views.medico_edit, name='medico_edit'),
+    #
+    path('horasmedicas',views.horasmedica_list, name='horasmedica.html'),
+    path('horasmedica/<int:pk>/', views.horasmedica_detail, name='horasmedica_detail'),
+    path('horasmedica/new', views.horasmedica_new, name='horasmedica_new'),
+    path('horasmedica/<int:pk>/edit/', views.horasmedica_edit, name='horasmedica_edit'),
 ]

@@ -13,8 +13,8 @@ body {
     background-color: white;
 }
 .content {
-    margin-left: 40px;
-    
+    margin: auto;
+    text-align: center;
 }
 
 h1, h2, h3, h4 {
@@ -38,6 +38,7 @@ h1, h2, h3, h4 {
     float: center;
     font-size: 26pt;
     margin-right: 20px;
+    
 }
 
 .post {

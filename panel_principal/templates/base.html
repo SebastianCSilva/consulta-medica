@@ -14,34 +14,38 @@
     <body>
         
 
-
+        
         <div class="page-header" >
             <div class="top-menu">
                 <div>
                     <h1>
                         <a href="/">Consulta Medica</a>
-                        <a href="/admin">Admin</a>
                         <a href="{% url 'paciente_new' %}" class="top-menu">Agregar Paciente</a>
                         <a href="{% url 'medico_new' %}" class="top-menu">Agregar Medico</a>
+                        <a href="{% url 'horasmedica_new' %}" class="top-menu">Agregar Llamada</a>
                     </h1>
                 </div>
                 
             </div>
         </div>
 
-        <div class="content container">
-            <div class="row">
-                
-                    {% block content %}
-                    {% endblock %} 
+        <div class='center'>
+            <div class="content container">
+                <div class="row">
+                        {% block content %}
+                        {% endblock %} 
                 </div>
             </div>
         </div>
-
+        
         <div class="navbar navbar-fixed-bottom" id="footer">
             <h3 class="">
                 Sebastian Cornejo Seccion 6
             </h3>
+            <h4><a href="/pacientes">Pacientes</a></h4>
+            <h4><a href="/medicos">Medicos</a></h4>
+            <h4><a href="/">Llamadas</a></h4>
+            <h4><a href="/horasmedicas">Horas Medicas</a></h4>
         </div>
     </body>
 </html>

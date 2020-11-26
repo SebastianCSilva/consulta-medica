@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="post">
+        
+        {% if user.is_authenticated %}
+        <a class="btn btn-default" href="{% url 'horasmedica_edit' pk=horasmedica.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+        {% endif %}        
+        <h1>{{ horasmedica.id_paciente }}</h1>
+        <h2> {{ horasmedica.id_boxes }} </h2>
+        <h2>{{ horasmedica.id_medico }}</h2>
+        <h2>{{ horasmedica.descripcion }}</h2>
+        <h2>{{ horasmedica.diagnostico }}</h2>
+
+
+    </div>
+{% endblock %}
