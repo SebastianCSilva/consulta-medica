@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="post">
+        
+        {% if user.is_authenticated %}
+        <a class="btn btn-default" href="{% url 'llamadasmedica_edit' pk=llamadasmedica.pk %}"><h1>Paciente de la llamada: {{ llamadasmedica.id_hora_medica.id_paciente.nombre}} {{ llamadasmedica.id_hora_medica.id_paciente.apellidos}}</h1></a>
+        {% endif %}        
+        
+        <h1>Doctor de la llamada: {{ llamadasmedica.id_hora_medica.id_medico.nombre}} {{ llamadasmedica.id_hora_medica.id_medico.apellidos}}</h1>
+        <h2>Id de la Notificacion {{ llamadasmedica.id_notification }} </h2>
+        <h2>Numero de llamada: {{ llamadasmedica.llamadas }}</h2>
+        <h2>Fecha de creacion: {{ llamadasmedica.created_date }}</h2>
+
+
+    </div>
+{% endblock %}

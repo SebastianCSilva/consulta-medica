@@ -24,4 +24,9 @@ urlpatterns = [
     path('horasmedica/<int:pk>/', views.horasmedica_detail, name='horasmedica_detail'),
     path('horasmedica/new', views.horasmedica_new, name='horasmedica_new'),
     path('horasmedica/<int:pk>/edit/', views.horasmedica_edit, name='horasmedica_edit'),
+    #
+    path('llamadasmedicas',views.llamadasmedica_list, name='llamadasmedica.html'),
+    path('llamadasmedica/<int:pk>/', views.llamadasmedica_detail, name='llamadasmedica_detail'),
+    path('llamadasmedica/new', views.llamadasmedica_new, name='llamadasmedica_new'),
+    path('llamadasmedica/<int:pk>/edit/', views.llamadasmedica_edit, name='llamadasmedica_edit'),
 ]

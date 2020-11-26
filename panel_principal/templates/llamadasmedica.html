@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    {% for llamadasmedica in llamadasmedicas %}
+    <div class="col-md-3">
+        <div class="post">
+            <h1><a href="{% url 'llamadasmedica_detail' pk=llamadasmedica.pk %}">{{ llamadasmedica.id_hora_medica.id_paciente.nombre }}
+                {{ llamadasmedica.id_hora_medica.id_paciente.apellidos }}
+
+            </a></h1>
+            <h2>Doctor correspondiente: {{ llamadasmedica.id_hora_medica.id_medico.nombre }} {{ llamadasmedica.id_hora_medica.id_medico.apellidos }}</h2>
+            <h2>Numero de llamada: {{ llamadasmedica.llamadas }}</h2>
+            <h3>Fecha de creacion: {{ llamadasmedica.created_date }}</h3>
+        </div>
+    </div>
+    {% endfor %}
+  
+{% endblock %}

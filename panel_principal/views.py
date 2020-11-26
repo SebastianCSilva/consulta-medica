@@ -4,7 +4,7 @@ from django.contrib.auth import logout as do_logout
 from django.contrib.auth import authenticate, login as dj_login
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.forms import UserCreationForm
-from .forms import PacienteForm, MedicoForm, HorasMedicasForm
+from .forms import PacienteForm, MedicoForm, HorasMedicasForm, LlamadasMedicasForm
 from .models import Boxe, Paciente, Medico, Notificacione, Horas_medica, Llamada_medica
 
 
@@ -106,13 +106,6 @@ def paciente_new(request):
         form = PacienteForm(request.POST)
         if form.is_valid():
             paciente = form.save(commit=False)
-            paciente.nombre = request.nombre
-            paciente.apellidos = request.apellidos
-            paciente.rut = request.rut
-            paciente.nombre = request.nombre
-            paciente.fecha_nacimiento = request.fecha_nacimiento
-            paciente.direccion = request.direccion
-            paciente.genero = request.genero
             paciente.created_date = timezone.now()
             paciente.save()
             return redirect('paciente_detail', pk=paciente.pk)
@@ -126,13 +119,6 @@ def paciente_edit(request, pk):
         form = PacienteForm(request.POST, instance=post)
         if form.is_valid():
             paciente = form.save(commit=False)
-            paciente.nombre = request.nombre
-            paciente.apellidos = request.apellidos
-            paciente.rut = request.rut
-            paciente.nombre = request.nombre
-            paciente.fecha_nacimiento = request.fecha_nacimiento
-            paciente.direccion = request.direccion
-            paciente.genero = request.genero
             paciente.created_date = timezone.now()
             paciente.save()
             return redirect('paciente_detail', pk=paciente.pk)
@@ -155,12 +141,6 @@ def medico_new(request):
         form = MedicoForm(request.POST)
         if form.is_valid():
             medico = form.save(commit=False)
-            medico.nombre = request.nombre
-            medico.apellidos = request.apellidos
-            medico.rut = request.rut
-            medico.fecha_nacimiento = request.fecha_nacimiento
-            medico.direccion = request.direccion
-            medico.genero = request.genero
             medico.created_date = timezone.now()
             medico.save()
             return redirect('medico_detail', pk=medico.pk)
@@ -176,12 +156,6 @@ def medico_edit(request, pk):
         form = MedicoForm(request.POST, instance=post)
         if form.is_valid():
             medico = form.save(commit=False)
-            medico.nombre = request.nombre
-            medico.apellidos = request.apellidos
-            medico.rut = request.rut
-            medico.fecha_nacimiento = request.fecha_nacimiento
-            medico.direccion = request.direccion
-            medico.genero = request.genero
             medico.created_date = timezone.now()
             medico.save()
             return redirect('medico_detail', pk=medico.pk)
@@ -206,11 +180,6 @@ def horasmedica_new(request):
         form = HorasMedicasForm(request.POST)
         if form.is_valid():
             horasmedica = form.save(commit=False)
-            horasmedica.id_boxes = request.id_boxes
-            horasmedica.id_medico = request.id_medico
-            horasmedica.id_paciente = request.id_paciente
-            horasmedica.descripcion = request.descripcion
-            horasmedica.diagnostico = request.diagnostico
             horasmedica.created_date = timezone.now()
             horasmedica.save()
             return redirect('horasmedica_detail', pk=horasmedica.pk)
@@ -219,19 +188,48 @@ def horasmedica_new(request):
     return render(request, 'horasmedica_edit.html', {'form': form})
 
 def horasmedica_edit(request, pk):
-    post = get_object_or_404(Medico, pk=pk)
+    post = get_object_or_404(Horas_medica, pk=pk)
     if request.method == "POST":
         form = HorasMedicasForm(request.POST, instance=post)
         if form.is_valid():
             horasmedica = form.save(commit=False)
-            horasmedica.id_boxes = request.id_boxes
-            horasmedica.id_medico = request.id_medico
-            horasmedica.id_paciente = request.id_paciente
-            horasmedica.descripcion = request.descripcion
-            horasmedica.diagnostico = request.diagnostico
             horasmedica.created_date = timezone.now()
             horasmedica.save()
             return redirect('horasmedica_detail', pk=horasmedica.pk)
     else:
         form = HorasMedicasForm(instance=post)
     return render(request, 'horasmedica_edit.html', {'form': form})
+
+
+def llamadasmedica_list(request):
+    llamadasmedicas = Llamada_medica.objects.order_by('created_date')
+    return render(request, 'panel_principal/templates/llamadasmedica.html', {'llamadasmedicas':llamadasmedicas})
+
+def llamadasmedica_detail(request, pk):
+    llamadasmedica = get_object_or_404(Llamada_medica, pk=pk)
+    return render(request, 'llamadasmedica_detail.html', {'llamadasmedica': llamadasmedica})
+
+def llamadasmedica_new(request):
+    if request.method == "POST":
+        form = LlamadasMedicasForm(request.POST)
+        if form.is_valid():
+            llamadasmedica = form.save(commit=False)
+            llamadasmedica.created_date = timezone.now()
+            llamadasmedica.save()
+            return redirect('llamadasmedica_detail', pk=llamadasmedica.pk)
+    else:
+        form = LlamadasMedicasForm()
+    return render(request, 'llamadasmedica_edit.html', {'form': form})
+
+def llamadasmedica_edit(request, pk):
+    post = get_object_or_404(Llamada_medica, pk=pk)
+    if request.method == "POST":
+        form = LlamadasMedicasForm(request.POST, instance=post)
+        if form.is_valid():
+            llamadasmedica = form.save(commit=False)
+            llamadasmedica.created_date = timezone.now()
+            llamadasmedica.save()
+            return redirect('llamadasmedica_detail', pk=llamadasmedica.pk)
+    else:
+        form = LlamadasMedicasForm(instance=post)
+    return render(request, 'llamadasmedica_edit.html', {'form': form})
