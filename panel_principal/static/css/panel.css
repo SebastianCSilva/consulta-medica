@@ -40,7 +40,13 @@ h1, h2, h3, h4 {
     margin-right: 20px;
     
 }
+.top-menu h3 a{
+    color: #ffffff;
+    float: center;
+    font-size: 26pt;
+    margin-right: 20px;
 
+}
 .post {
     margin-bottom: 70px;
     
@@ -69,6 +75,6 @@ h1, h2, h3, h4 {
 .right{
     text-align: right;
 }
-#footer h3{
+#footer h3, a{
     color: #ffffff;
 }

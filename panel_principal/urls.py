@@ -29,4 +29,9 @@ urlpatterns = [
     path('llamadasmedica/<int:pk>/', views.llamadasmedica_detail, name='llamadasmedica_detail'),
     path('llamadasmedica/new', views.llamadasmedica_new, name='llamadasmedica_new'),
     path('llamadasmedica/<int:pk>/edit/', views.llamadasmedica_edit, name='llamadasmedica_edit'),
+    #
+    path('notificaciones',views.notificacione_list, name='notificacione.html'),
+    path('notificacione/<int:pk>/', views.notificacione_detail, name='notificacione_detail'),
+    path('notificacione/new', views.notificacione_new, name='notificacione_new'),
+    path('notificacione/<int:pk>/edit/', views.notificacione_edit, name='notificacione_edit'),
 ]

@@ -4,7 +4,7 @@ from django.contrib.auth import logout as do_logout
 from django.contrib.auth import authenticate, login as dj_login
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.forms import UserCreationForm
-from .forms import PacienteForm, MedicoForm, HorasMedicasForm, LlamadasMedicasForm
+from .forms import PacienteForm, MedicoForm, HorasMedicasForm, LlamadasMedicasForm, NotificacionesForm
 from .models import Boxe, Paciente, Medico, Notificacione, Horas_medica, Llamada_medica
 
 
@@ -81,7 +81,7 @@ def login(request):
                 # Hacemos el login manualmente
                 dj_login(request, user)
                 # Y le redireccionamos a la portada
-                return redirect('/welcome')
+                return redirect('/')
 
     # Si llegamos al final renderizamos el formulario
     return render(request, "login.html", {'form': form})
@@ -233,3 +233,37 @@ def llamadasmedica_edit(request, pk):
     else:
         form = LlamadasMedicasForm(instance=post)
     return render(request, 'llamadasmedica_edit.html', {'form': form})
+
+
+def notificacione_list(request):
+    notificaciones = Notificacione.objects.order_by('created_date')
+    return render(request, 'panel_principal/templates/notificacione.html', {'notificaciones':notificaciones})
+
+def notificacione_detail(request, pk):
+    notificacione = get_object_or_404(Notificacione, pk=pk)
+    return render(request, 'notificacione_detail.html', {'notificacione': notificacione})
+
+def notificacione_new(request):
+    if request.method == "POST":
+        form = NotificacionesForm(request.POST)
+        if form.is_valid():
+            notificacione = form.save(commit=False)
+            notificacione.created_date = timezone.now()
+            notificacione.save()
+            return redirect('notificacione_detail', pk=notificacione.pk)
+    else:
+        form = NotificacionesForm()
+    return render(request, 'notificacione_edit.html', {'form': form})
+
+def notificacione_edit(request, pk):
+    post = get_object_or_404(Notificacione, pk=pk)
+    if request.method == "POST":
+        form = NotificacionesForm(request.POST, instance=post)
+        if form.is_valid():
+            notificacione = form.save(commit=False)
+            notificacione.created_date = timezone.now()
+            notificacione.save()
+            return redirect('notificacione_detail', pk=notificacione.pk)
+    else:
+        form = NotificacionesForm(instance=post)
+    return render(request, 'notificacione_edit.html', {'form': form})

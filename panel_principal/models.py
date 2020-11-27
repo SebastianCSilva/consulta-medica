@@ -50,20 +50,13 @@ class Medico(models.Model):
 
 
 class Notificacione(models.Model):
-    """
-    #FALTA POR HACER LAS NOTIFICACIONES 
-    """
+    nombrecompleto = models.TextField(default='Nombre Completo')
+    rut = models.TextField(default='91.111.111-1')
     created_date = models.DateTimeField(
         default=timezone.now)
-    published_date = models.DateTimeField(
-        blank=True, null=True)
-
-    def publish(self):
-        self.published_date = timezone.now()
-        self.save()
 
     def __str__(self):
-        return str(self.id)
+        return "%s %s %s" % (self.id, self.rut, self.nombrecompleto)
 
 
 class Horas_medica(models.Model):
@@ -78,7 +71,7 @@ class Horas_medica(models.Model):
 
     def __str__(self):
         #template = '{0.descripcion} {0.diagnostico}'
-        return f'{self.id}'
+        return "%s %s %s" % (self.id, self.id_paciente.nombre, self.id_paciente.apellidos)
 
 
 class Llamada_medica(models.Model):
@@ -90,4 +83,4 @@ class Llamada_medica(models.Model):
         default=timezone.now)
 
     def __str__(self):
-        return str(self.id)
+        return "%s %s %s" % (self.id_hora_medica.id_paciente.nombre, self.id_hora_medica.id_paciente.apellidos, self.id_notification)

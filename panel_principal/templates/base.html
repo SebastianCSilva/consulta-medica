@@ -13,19 +13,18 @@
     </head>
     <body>
         
-
-        
         <div class="page-header" >
             <div class="top-menu">
-                <div>
-                    <h1>
-                        <a href="/">Consulta Medica</a>
-                        <a href="{% url 'paciente_new' %}" class="top-menu">Agregar Paciente</a>
-                        <a href="{% url 'medico_new' %}" class="top-menu">Agregar Medico</a>
-                        <a href="{% url 'horasmedica_new' %}" class="top-menu">Agregar Hora Medica</a>
-                        <a href="{% url 'llamadasmedica_new' %}" class="top-menu">Agregar Llamada</a>
-                        
-                    </h1>
+                <div class="center">
+                    <h3>
+                        <a href="/" class="top-menu">Consulta Medica</a> 
+                        <a href="/pacientes" class="top-menu">Pacientes</a>
+                        <a href="/medicos" class="top-menu">Medicos</a>
+                        <a href="/" class="top-menu">Llamadas</a>
+                        <a href="/horasmedicas" class="top-menu">Horas Medicas</a>
+                        <a href="/llamadasmedicas" class="top-menu">Llamadas Medicas</a>
+                        <a href="/notificaciones" class="top-menu">Notificaciones</a></h4>
+                    </h3>
                 </div>
                 
             </div>
@@ -41,14 +40,19 @@
         </div>
         
         <div class="navbar navbar-fixed-bottom" id="footer">
-            <h3 class="">
-                Sebastian Cornejo Seccion 6
-            </h3>
-            <h4><a href="/pacientes">Pacientes</a></h4>
-            <h4><a href="/medicos">Medicos</a></h4>
-            <h4><a href="/">Llamadas</a></h4>
-            <h4><a href="/horasmedicas">Horas Medicas</a></h4>
-            <h4><a href="/llamadasmedicas">Llamadas Medicas</a></h4>
+            <h3 class="">Sebastian Cornejo Seccion 6</h3>
+            <h3 class=""><a href="/register"> Registrar usuario</a></h3>
+            <h3 class=""><a href="/login"> Ingresar al sitio</a></h3>
+            {% if user.is_authenticated %}
+
+            <h4><a href="{% url 'paciente_new' %}">Agregar Paciente</a></h4>
+            <h4><a href="{% url 'medico_new' %}">Agregar Medico</a></h4>
+            <h4><a href="{% url 'horasmedica_new' %}">Agregar Hora Medica</a></h4>
+            <h4><a href="{% url 'llamadasmedica_new' %}">Agregar Llamada</a></h4>
+            <h4><a href="{% url 'notificacione_new' %}">Agregar Notificacion</a></h4>
+            <h4><a href="/logout">Cerrar Sesion</a></h4>
+            {% endif %}        
+
         </div>
     </body>
 </html>

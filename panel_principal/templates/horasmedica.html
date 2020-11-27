@@ -3,9 +3,14 @@
 {% block content %}
 
     {% for horasmedica in horasmedicas %}
-    <div class="col-md-3">
+    <div class="col-md-3 col-md-4">
         <div class="post">
+            {% if user.is_authenticated %}
             <h1>Paciente: <a href="{% url 'horasmedica_detail' pk=horasmedica.pk %}">{{ horasmedica.id_paciente }}</a></h1>
+            {% else %}
+            <h1>Paciente: {{ horasmedica.id_paciente }}</h1>
+            {% endif %} 
+
             <h2>Numero de Box: {{ horasmedica.id_boxes }} </h2>
             <h2>Datos del doctor: {{ horasmedica.id_medico }}</h2>
             <p>Descripcion: {{ horasmedica.descripcion }}</p>

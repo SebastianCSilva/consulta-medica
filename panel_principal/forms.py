@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Paciente, Medico, Horas_medica, Llamada_medica
+from .models import Paciente, Medico, Horas_medica, Llamada_medica, Notificacione
 
 class PacienteForm(forms.ModelForm):
 
@@ -25,3 +25,9 @@ class LlamadasMedicasForm(forms.ModelForm):
     class Meta:
         model = Llamada_medica
         fields = ('id_hora_medica', 'id_notification', 'llamadas')
+
+class NotificacionesForm(forms.ModelForm):
+
+    class Meta:
+        model = Notificacione
+        fields = ('nombrecompleto', 'rut')
