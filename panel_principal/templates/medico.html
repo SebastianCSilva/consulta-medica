@@ -5,7 +5,7 @@
     <div class="col-md-3 col-md-4">
         <div class="post">
             {% if user.is_authenticated %}
-            <h1><a href="{% url 'medico_detail' pk=medico.pk %}">{{ medico.rut }}</a></h1>
+            <h1><a href="{% url 'medico_detail' pk=medico.pk %}" style="color:#008cff">{{ medico.rut }}</a></h1>
             {% else %}
             <h1>{{ medico.rut }}</a></h1>
             {% endif %} 

@@ -3,7 +3,7 @@
     {% for notificacione in notificaciones %}
         <div class="col-md-3 col-md-4">
             <div class="post">
-                <h1><a href="{% url 'notificacione_detail' pk=notificacione.pk %}"></a>{{ notificacione.rut }}</a></h1>
+                <h1><a href="{% url 'notificacione_detail' pk=notificacione.pk %}" style="color:#008cff"></a>{{ notificacione.rut }}</a></h1>
                 <h2>{{ notificacione.nombrecompleto }}</h2>
                 <h2>{{ notificacione.created_date }}</h2>
                 

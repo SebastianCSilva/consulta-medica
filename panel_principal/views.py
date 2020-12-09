@@ -6,8 +6,11 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.forms import UserCreationForm
 from .forms import PacienteForm, MedicoForm, HorasMedicasForm, LlamadasMedicasForm, NotificacionesForm
 from .models import Boxe, Paciente, Medico, Notificacione, Horas_medica, Llamada_medica
-
-
+from django.http import HttpResponse
+import csv
+from datetime import datetime
+import pytz
+from django.utils.dateparse import parse_datetime
 
 
 
@@ -267,3 +270,68 @@ def notificacione_edit(request, pk):
     else:
         form = NotificacionesForm(instance=post)
     return render(request, 'notificacione_edit.html', {'form': form})
+
+
+def export_csv(request, fechainicio, fechafinal):
+    response = HttpResponse(content_type='text/csv')
+   
+    fechainicio1 = fechainicio
+    fechafinal1 = fechafinal
+     
+    print(str(fechainicio1)+' 00:00:00.000000' +'/// '+ str(fechafinal1)+' 00:00:00.000000')
+    fechaauxiliar = str(fechainicio1)+' 00:00:00.000000'
+    fechaauxiliar2 = str(fechafinal1)+' 00:00:00.000000'
+  
+    
+
+    fechainicioformateada = datetime.strptime(fechaauxiliar, "%Y-%m-%d %H:%M:%S.%f")
+    fechafinalformateada = datetime.strptime(fechaauxiliar2, "%Y-%m-%d %H:%M:%S.%f")
+   
+    
+
+    la = pytz.timezone('America/Santiago')
+    
+    n1 = parse_datetime(fechaauxiliar) # naive object
+    n2 = parse_datetime(fechaauxiliar2)
+    aware_start_time = la.localize(n1) # aware object
+    aware_end_time = la.localize(n2)
+    print(aware_start_time)
+    print(aware_end_time)
+
+    writer = csv.writer(response)
+    writer.writerow(['Nombre del Doctor','Box','Fecha Creado'])
+
+    for horasmedicas in Horas_medica.objects.order_by('id_medico').values_list('id_medico','id_boxes','id_paciente','created_date'):
+        
+        formarcsv = ''
+        formafinal = []
+        if (horasmedicas[3] <= aware_end_time and horasmedicas[3] >= aware_start_time):
+            #Esto esta funcionando para hacer comparacion de las fechas y solo filtrar las que necesitamos
+            
+            #ID MEDICO
+            if horasmedicas[0] != None:
+                idmedico = horasmedicas[0]
+                nombredoctor = Medico.objects.filter(pk=idmedico).values_list('nombre','apellidos')
+                print(nombredoctor)
+                
+                formarcsv = ' '.join(str(x) for x in nombredoctor)
+                print(formarcsv)
+            print(nombredoctor[0])
+            print(nombredoctor[0])
+            print(nombredoctor[0])
+            print(nombredoctor[0])
+            """#ID PACIENTE
+            if horasmedicas[2] != None:
+                formarcsv = formarcsv + horasmedicas[2]
+                print(horasmedicas[2])"""
+
+            if horasmedicas[3] != None:
+                #formarcsv = formarcsv +","+ str(horasmedicas[3].date())
+                print(horasmedicas[3])
+            print(formarcsv)
+            formafinal = [formarcsv,horasmedicas[1],horasmedicas[3].date()]
+            writer.writerow(formafinal)
+
+    response['Content-Disposition'] = 'attachment; filename="medicos.csv"'
+    
+    return response

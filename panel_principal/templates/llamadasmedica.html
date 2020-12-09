@@ -7,7 +7,7 @@
         <div class="post">
 
             {% if user.is_authenticated %}
-            <h1><a href="{% url 'llamadasmedica_detail' pk=llamadasmedica.pk %}">{{ llamadasmedica.id_hora_medica.id_paciente.nombre }}
+            <h1><a href="{% url 'llamadasmedica_detail' pk=llamadasmedica.pk %}" style="color:#008cff">{{ llamadasmedica.id_hora_medica.id_paciente.nombre }}
                 {{ llamadasmedica.id_hora_medica.id_paciente.apellidos }}
             </a></h1>
             {% else %}

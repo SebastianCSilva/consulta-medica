@@ -34,4 +34,6 @@ urlpatterns = [
     path('notificacione/<int:pk>/', views.notificacione_detail, name='notificacione_detail'),
     path('notificacione/new', views.notificacione_new, name='notificacione_new'),
     path('notificacione/<int:pk>/edit/', views.notificacione_edit, name='notificacione_edit'),
+    #, name='export_csv'  ?P<fechainicio>\w/?P<fechafinal>\w/
+    path('exportcsv/<str:fechainicio>/<str:fechafinal>/', views.export_csv),
 ]

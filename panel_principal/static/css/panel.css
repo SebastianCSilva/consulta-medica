@@ -5,7 +5,7 @@
 }
 
 .page-header h1, .page-header h1 a, .page-header h1 a:visited, .page-header h1 a:active {
-    color: #ffffff;
+    color: #1387aa;
     font-size: 36pt;
     text-decoration: none;
 }
@@ -51,9 +51,11 @@ h1, h2, h3, h4 {
     margin-bottom: 70px;
     
 }
-
-.post h2 a, .post h2 a:visited {
-    color: rgb(207, 252, 249);
+.encabezado {
+    color: rgb(14, 211, 198);
+}
+.post h2 a, .post h2 a:visited, .post h1 a, .post h2 a:visited {
+    color: rgb(14, 211, 198);
 }
 
 #footer {
