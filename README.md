@@ -31,6 +31,7 @@ http://127.0.0.1:8000/exportcsv/2020-11-25/2020-11-26/
 http://127.0.0.1:8000/exportcsv/FechaInicio/FechaFinal/
 
                                 2020-11-25
+				YYYY-MM-DD
 
 Para ver todas las plantillas html
 panel_principal>> templates >>
