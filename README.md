@@ -41,23 +41,24 @@ Procedure para Crear funcion que ve los datos de un doctor/medico
 Esto vendria a ser en el panel de Postgresql 4
 
 
-Create function BuscarMedico(identificador int)
-returns setof panel_principal_medico
-as
-$$
-select X.id, X.nombre, X.apellidos, X.rut, X.direccion, X.fecha_nacimiento, X.created_date, Y.id
-from public.panel_principal_medico X, public.panel_principal_genero Y where X.id=identificador and X.genero_id=Y.id
-$$
-Language SQL
+		Create function BuscarMedico(identificador int)
+		returns setof panel_principal_medico
+		as
+		$$
+		select X.id, X.nombre, X.apellidos, X.rut, X.direccion, X.fecha_nacimiento, X.created_date, Y.id
+		from public.panel_principal_medico X, public.panel_principal_genero Y where X.id=identificador and X.genero_id=Y.id
+		$$
+		Language SQL
 
 ------
 Asi es como se veria la function
 
-SELECT public.buscarmedico(
-	<identificador integer>
-)
+		SELECT public.buscarmedico(
+			<identificador integer>
+		)
 
 Y para ingresar datos de busqueda por id en este caso el con id 1
-SELECT public.buscarmedico(
-	1
-)
+
+		SELECT public.buscarmedico(
+			1
+		)
