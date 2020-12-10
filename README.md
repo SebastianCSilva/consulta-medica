@@ -26,9 +26,10 @@ panel_principal>> views.py
 ultima funcion
 
 Para Pedir CSV con filtrado se tiene que hacer con este formato
-http://127.0.0.1:8000/exportcsv/2020-11-25/2020-11-26/
 
-http://127.0.0.1:8000/exportcsv/FechaInicio/FechaFinal/
+	http://127.0.0.1:8000/exportcsv/2020-11-25/2020-11-26/
+
+	http://127.0.0.1:8000/exportcsv/FechaInicio/FechaFinal/
 
                                 2020-11-25
 				YYYY-MM-DD
